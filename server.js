@@ -15,15 +15,20 @@ const peopleOnID = []
 io.on('connect', socket => {
     peopleOnID.push(socket.id)
     peopleOnCount++
-    let hi = peopleOnCount+' online '+socket.id+' just joined the battle'
-    socket.emit('welcome', hi);
+    let hi = peopleOnCount+' current in the room'
+    let current = "current people in the room" + [peopleOnID]
+    socket.emit('welcome', );
     socket.broadcast.emit('hello', hi);
+    socket.broadcast.emit('hello', current);
 console.log(peopleOnID)
       socket.on('disconnect', () => {
-    let bye= peopleOnCount+' online '+socket.id+' just left the battle'
-
+          for( var i = 0; i < peopleOnID.length; i++){ if ( peopleOnID[i] === socket.id) { peopleOnID.splice(i, 1); i--; }}
+          
           peopleOnCount--
-      socket.broadcast.emit('hello', bye);      
+          let bye= peopleOnCount+' online '+socket.id+' just left the battle, now there are only ' + peopleOnID
+      socket.broadcast.emit('hello', bye);  
+console.log(peopleOnID)
+
     });
   });
 

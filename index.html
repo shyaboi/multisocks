@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Minimal working example</title>
+    <title>Sockets and stuff</title>
 </head>
 <body>
     Hi worldss
@@ -23,6 +23,8 @@
         socket.on('welcome', (hi) => {
             $events.appendChild(newItem(hi));
         })
+
+
         
         socket.on('hello', (hi) => {
             console.log(hi)
