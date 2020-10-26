@@ -13,6 +13,11 @@ const peopleOnID = []
 
 
 io.on('connect', socket => {
+  socket.on('typing', data => {
+    console.log(data);
+  });
+
+
     peopleOnID.push(socket.id)
     peopleOnCount++
     let hi = peopleOnCount
@@ -28,8 +33,9 @@ console.log(peopleOnID)
           
           peopleOnCount--
           let bye= peopleOnCount+' online '+socket.id+' just left '
-      socket.broadcast.emit('bye', bye);  
+      socket.broadcast.emit('bye', peopleOnCount);  
       socket.broadcast.emit('inroom', current);  
+      socket.broadcast.emit('hello', hi);
 
 console.log(peopleOnID)
 
