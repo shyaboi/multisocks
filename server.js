@@ -11,6 +11,7 @@ const io = require('socket.io')(httpServer);
 
 let peopleOnCount = 0
 const peopleOnID = []
+let chatLog = []
 
 
 io.on('connect', socket => {
@@ -24,11 +25,15 @@ io.on('connect', socket => {
 
   socket.on('message', data => {
     const msg = data
-    console.log(msg);
-    socket.broadcast.emit('msg', msg)
+    console.log(msg.id, msg.msg);
+    chatLog.push(msg)
+    console.log(chatLog)
+    socket.emit('msg', chatLog)
+    socket.broadcast.emit('msg', chatLog)
   });
 
 
+  socket.emit('msg', chatLog)
 
     peopleOnID.push(socket.id)
     peopleOnCount++
