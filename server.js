@@ -28,7 +28,6 @@ io.on('connect', socket => {
     console.log(msg.id, msg.msg);
     chatLog.push(msg)
     console.log(chatLog)
-    socket.emit('msg', chatLog)
     socket.broadcast.emit('msg', chatLog)
   });
 
