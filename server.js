@@ -41,7 +41,7 @@ io.on('connect', socket => {
     let current = peopleOnID
     socket.broadcast.emit('welcome', socket.id );
     socket.emit('inroom', current);  
-    socket.broadcast.emit('hello', hi);
+    // socket.broadcast.emit('hello', hi);
     socket.broadcast.emit('inroom', current);  
 
 // console.log(peopleOnID)
@@ -52,7 +52,8 @@ io.on('connect', socket => {
           let bye= peopleOnCount+' online '+socket.id+' just left '
       socket.broadcast.emit('bye', socket.id);  
       socket.broadcast.emit('inroom', current);  
-      socket.broadcast.emit('hello', hi);
+      // socket.broadcast.emit('hello', hi);
+
 
 // console.log(peopleOnID)
 
