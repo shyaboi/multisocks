@@ -15,6 +15,27 @@ let chatLog = []
 
 
 io.on('connect', socket => {
+  socket.emit('msg', chatLog)
+  peopleOnCount++
+  let id;
+  let current = peopleOnID
+  // let hi = peopleOnCount
+    
+    socket.on('idCheck', data => {
+      for( var i = 0; i < peopleOnID.length; i++){ if ( peopleOnID[i] === socket.id) { peopleOnID.splice(i, 1); i--; }}
+
+      id =  data
+
+      socket.id = id
+      peopleOnID.push(id)
+      current = peopleOnID
+      socket.broadcast.emit('welcome', id );
+      socket.emit('inroom', current);  
+      socket.broadcast.emit('inroom', current);  
+      console.log(peopleOnID)
+    });
+
+
 
   socket.on('typing', data => {
     const id = data.id
@@ -33,18 +54,6 @@ io.on('connect', socket => {
   });
 
 
-  socket.emit('msg', chatLog)
-
-    peopleOnID.push(socket.id)
-    peopleOnCount++
-    let hi = peopleOnCount
-    let current = peopleOnID
-    socket.broadcast.emit('welcome', socket.id );
-    socket.emit('inroom', current);  
-    // socket.broadcast.emit('hello', hi);
-    socket.broadcast.emit('inroom', current);  
-
-// console.log(peopleOnID)
       socket.on('disconnect', () => {
           for( var i = 0; i < peopleOnID.length; i++){ if ( peopleOnID[i] === socket.id) { peopleOnID.splice(i, 1); i--; }}
           
